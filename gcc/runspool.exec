@@ -1,0 +1,50 @@
+* Run a job, spooling the output
+*
+* First connect to the z/VM system with something like this:
+*
+* c3270 -mono 66.139.111.222 3333
+*
+* Then press ctrl-] to get the c3270 prompt
+*
+* Then transfer the file to the b disk as such:
+*
+* c3270> transfer localfile=xfer.card "hostfile=xfer card b" 
+*        direction=send mode=binary exist=replace
+*
+* Then enter to return
+*
+* Now assuming this file, plus CMSUTIL have already been
+* placed on your A disk, make your A disk become D, e.g.
+*
+* access 191 D
+*
+* Then type "RUNSPOOL" (assuming you have corrected the
+* hardcoded numbers below - note that it erases your disks!)
+*
+* You probably want to rename this file so that after a
+* fresh extraction, you don't use your unmodified version
+* if you attempt a rerun.
+*
+
+CP MSG * START REDIRECTED JOB
+
+CP SPOOL CONS TO * START NOTERM
+
+MVSENDEC DECB "XFER CARD B" "ALL ZIP D"
+
+ACCESS 291 A (ERASE
+ACCESS 192 B (ERASE
+ACCESS 193 C
+
+MVSUNZIP "ALL ZIP D" A
+
+SET LDRTBLS 25
+
+* e.g. EXEC ALLCMS A B C
+
+*&1 &2 &3 &4 &5 &6 &7 &8 &9
+EXEC ALLCMS A B C
+
+CP SPOOL CONS STOP CLOSE
+
+CP MSG * END REDIRECTED JOB

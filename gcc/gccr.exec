@@ -1,0 +1,121 @@
+/* REXX EXEC TO COMPILE GCC PROGRAM DAVE WADE 24-APRIL-2006 */
+/*
+   This exec is in the Public Domain and may be freely re-used
+   without reference to the author. It is however provided AS-IS
+   and without any warranty of fitness for any purpose.
+
+   It will overwrite files without reference to the user and
+   may compile the wrong code.
+*/
+/*
+  Format of the EXEC is
+
+      GCC fn ft fm ( gcc_options
+
+  Where:-
+
+      "fn ft fm" Is a source file.
+
+      If "ft" is omitted it is assumed to be "C"
+      If "fm" is omitted it is assumed to be "A"
+
+
+      gcc_options are the "standard" GCC options.
+
+      Entering "GCC" with no options will list the GCC options.
+*/
+/*
+  EXTRACT THE COMMAND OPTIONS
+*/
+/* CE R */
+ADDRESS COMMAND
+
+PARSE ARG cfile "(" gccopts
+PARSE UPPER VAR cfile cfn cft cfm
+/*
+  If no file-name invoke the compiler with just the
+  option string. If the option string is also null
+  do "gcc --help"
+*/
+
+If cfn = "" Then Do
+ Say "Format of this EXEC is"
+ Say " "
+ Say "   GCCR fn ft fm ( gcc_options"
+ Say " "
+ if gccopts = "" then gccopts = "--help"
+ Address CMS  'Pipe (end ?)'  ,
+    'var GCCOPTS'  ,
+    '| > $GCC$ $PARM$ A2'
+ "FILEDEF SYSPARM DISK $GCC$ $PARM$ A"
+ "GCC"
+ return
+End
+/*
+  We have at least a file name
+
+*/
+If cft = "" Then cft = "C"
+/*
+  check for a file mode.
+*/
+
+If cfm = "" Then Do               /*  no file mode */
+ "STATE" cfn cft "*"              /*  check that the file exists */
+ If rc <> 0 Then Do               /* nope exit with grace */
+  Say "Input File <"cfn cft cfm"> Not Found"
+  return 28
+ End
+ "FILEDEF SYSIN DISK" cfn cft "*"
+ "FILEDEF OUT  DISK" cfn "$WORK$ A (LRECL 80 RECFM F"
+ wfm = "A"
+End
+Else Do                           /* we have a file mode */
+ "STATE" cfn cft cfm              /*  check that the file exists */
+ If rc <> 0 Then Do               /* nope exit with grace */
+  Say "Input File <"cfn cft cfm"> Not Found"
+  return 28
+ End
+ "FILEDEF SYSIN DISK" cfn cft "*" /* define input */
+ "STATEW" cfn cft cfm             /* is it a writable disk */
+ if rc = 0 Then Do                /* yes - work file on the same disk*/
+   "FILEDEF OUT  DISK" cfn "$WORK$" cfm "(LRECL 80 RECFM F"
+   wfm = cfm
+ End
+ Else Do                          /* nop pop on "A" disk */
+   "FILEDEF OUT  DISK" cfn "$WORK$ A (LRECL 80 RECFM F"
+   wfm = "A"
+ End
+End /* input and work files defined */
+/* now create options file */
+gccopts = "-o dd:out - -S" gccopts /* put files on options */
+ "EXECIO 1 DISKW $GCC$ $PARM$ A2 1 V (FINIS VAR GCCOPTS"
+ "FILEDEF SYSPARM DISK $GCC$ $PARM$ A"
+/*
+  Now run the compiler reading options from sysparm
+*/
+Say "Starting GCC Options = <"gccopts">"
+"GCC"
+if RC <>0 then do
+   say 'error in GCC compile step'
+   say 'RC:' rc
+   return -4
+end
+/* now rename from S to ASSEMBLE */
+address cms  ,
+    'PIPE (end ?)' ,
+      '<' cfn '$WORK$' wfm  ,
+      '| >' cfn 'ASSEMBLE' wfm 'F'
+"ERASE" cfn "$WORK$" wfm
+"FI OUT CLEAR"
+"FI SYSPARM CLEAR"
+"FI SYSIN CLEAR"
+Say "Assembling code"
+/*  we need the OSMACRO maclib for the SAVE and RETURN macros  */
+"GL MACLIB OSMACRO PDPCLIB"
+"ASMAHL" cfn
+if RC <>0 then do
+   say 'error in ASMAHL step'
+   say 'RC:' rc
+   return -8
+end

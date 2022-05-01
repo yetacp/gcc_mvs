@@ -1,0 +1,47 @@
+* Usage - WITHBIS1 <SRC> <EXE> <WORK>
+
+* This script compiles all the files on SRC disk (default is A),
+* making use of bison and generating the generated files, then
+* copies the resultant modules to the EXE disk (default B), and
+* puts the generated assembler on to the WORK disk (default C)
+
+
+&SRC = A
+&EXE = B
+&WORK = C
+
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&SRC = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&EXE = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&WORK = &1
+
+-FINARGS
+
+
+COPY __HEADER H &SRC HEADER GCC &SRC (REPL
+
+
+* Erase the work disk and avoid errors by copying
+* a dummy file
+COPY PDPTOP MAC &SRC = = &WORK (REPL
+LIST * * &WORK (EXEC
+EXEC CMS ERASE
+
+
+* Build and generate generated files
+EXEC GENCOMP &SRC
+
+
+* Build GCC, without a source comparison, since it won't compare
+EXEC COMPILE &SRC &EXE &SRC
+
+
+* Save the generated assembler ourselves
+COPY * S &SRC = = &WORK (REPL

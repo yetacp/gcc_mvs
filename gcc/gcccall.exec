@@ -1,0 +1,12 @@
+*******************************************************************
+*
+* This EXEC compiles all the C files that constitute the
+* GCC executable.
+* Usage: GCCCALL <DISK>
+*
+*******************************************************************
+&CONTROL
+
+&DISK = &1
+
+ EXEC ITERGCC GCCCONE Y Y N Y &DISK

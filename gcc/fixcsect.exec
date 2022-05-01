@@ -1,0 +1,23 @@
+********************************************************
+*
+* Fix blank CSECTs
+* Usage: FIXCSECT <filename> <disk> <asm name> <csect name>
+*
+********************************************************
+&CONTROL
+
+&FILE = &1
+&DISK = &2
+&ASMNAME = &3
+&CSECT = &4
+
+FILEDEF SYSIN DISK &FILE S &DISK
+FILEDEF SYSPRINT DISK &FILE ASSEMBLE &DISK (LRECL 80 RECFM F
+NAMCSECT &CSECT
+FILEDEF SYSPRINT CLEAR
+FILEDEF SYSIN CLEAR
+
+&ASMNAME &FILE
+ERASE &FILE ASSEMBLE
+ERASE &FILE LISTING
+&EXIT

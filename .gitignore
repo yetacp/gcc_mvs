@@ -1,0 +1,7 @@
+*.a
+*.o
+gcc/ada
+gcc/f
+gcc/java
+gcc/objc
+gcc/testsuite

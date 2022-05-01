@@ -1,0 +1,1 @@
+-Os -DXXX_MEMMGR -o dd:out - -S -ansi -pedantic-errors

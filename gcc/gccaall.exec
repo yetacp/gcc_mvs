@@ -1,0 +1,19 @@
+*******************************************************************
+*
+* This EXEC assembles all the assembler files that constitute the
+* GCC executable.
+* Usage: GCCAALL <DISK>
+*
+*******************************************************************
+&CONTROL
+
+&DISK = &1
+&ASMNAME = ASMAHL
+
+GLOBAL MACLIB OSMACRO DMSGPI PDPCLIB
+
+* Rename pdpclib assembler files to same format
+* name as GCC assembler files
+COPY * ASM &DISK = S = (REPLACE
+
+EXEC ITERGCC GCCAONE Y Y Y Y &DISK &ASMNAME

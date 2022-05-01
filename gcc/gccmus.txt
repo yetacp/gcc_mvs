@@ -1,0 +1,123 @@
+Release Notes for GCCMUS
+------------------------
+
+This document explains what needs to be done to get GCCMVS from:
+
+http://gccmvs.sourceforge.net
+
+to run on MUSIC/SP demo.
+
+The notes for the MVS version of the compiler (gccmvs.txt)
+should be read in conjunction with this document. In particlar
+the section on conversion from ASCII to EBCDIC is relevant to
+MUSIC/SP.
+
+
+
+Miscellaneous notes about MUSIC/SP
+----------------------------------
+
+The original MUSIC/SP port was done by Dave Edwards, but
+he unfortunately died, so Paul Edwards (no relation)
+picked it up some time later, with assistance mainly
+from Fausto Saporito.
+
+Dave's documentation for the newly-available ATL memory
+was scant, and currently the ATL address is simply
+hardcoded as 0x2000000 (32 MB), since it appears that
+it is not available via a GETMAIN etc call.
+
+Running under Hercules is much faster than running under
+SIM390. Also Hercules provides tape facilities which are
+not available on SIM390, and the build procedure is based
+around this. Testing is normally done under Hercules/380
+which has tape enhancements.
+
+The build procedure is basically reliant on the existence
+of a MUSIC/390, which is an enhancement to MUSIC/SP Demo,
+containing e.g. additional macro options.
+
+MUSIC/390 as its name implies runs on a standard S/390
+machine. However, the code model is S/380 (RMODE 24,
+AMODE 31).
+
+MUSIC/SP by default pages intensely. This in turn appears
+to invoke a presumed bug in Hercules. Changing MAXRRS
+from 2000 to 4000 ends the paging, allowing GCC to rebuild
+itself on MUSIC/390.
+
+The port is effectively complete, just waiting for someone
+to finalize scripts etc to do normal compilation, and
+putting things into a library to link with, and testing
+the mfarc (and formally producing MUSIC/390). The 
+technology itself is proven.
+
+The GCCMUS compiler simply reuses the MVS version, so there
+is currently no special __MUSIC__ define to use.  You can
+define one yourself as a parameter, or define a MUSIC, as
+you wish. The long-term intention is to have a __MUSIC__.
+
+
+
+Building
+--------
+
+To install from scratch you need to cross-compile from another 
+platform. Scripts are provided for MS Windows.
+
+First of all you need to get the source code by:
+
+1. Downloading the GCC base code (as per GCCMVS).
+
+2. Downloading the GCCMVS patch and applying it (as per GCCMVS).
+
+
+You then need to set the configuration properly.
+
+There are 2 distinct MUSIC/SP programming environments possible:
+
+1. Normal 24-bit. This is the S370 environment.
+
+2. RMODE 24, AMODE 31 with a chunk of ATL memory available for
+you to manage yourself. This is the S380 environment using
+MEMMGR.
+
+
+You can build the cross-compiler and then produce the
+assembler code and then have that transferred via tape
+to MUSIC/390 by running the "allmus.bat" file (after
+inspecting it for any required modifications).
+
+Don't worry about the fact that the executable is called
+gccmvs.exe and the batch file is also called mvs.  The
+name is shared, but they are different.
+
+
+
+Version
+-------
+
+To find out version, you can go:
+
+/parm --version
+/load xmon
+gcc n(gcc.lmod) lcparm
+
+
+
+Support
+-------
+
+Try asking a generic GCC question here:
+
+http://tech.groups.yahoo.com/group/hercules-os380/
+
+If your question is more MUSIC-related than GCC-related,
+a broader range of MUSIC/SP expertise is available here:
+
+http://tech.groups.yahoo.com/group/H390-music/
+
+and sometimes
+
+http://tech.groups.yahoo.com/group/musicspdemo/
+

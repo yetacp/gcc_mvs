@@ -1,0 +1,1 @@
+-Os -o dd:out - -S -ansi -pedantic-errors -remap -DUSE_MEMMGR -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DTARGET_CMS

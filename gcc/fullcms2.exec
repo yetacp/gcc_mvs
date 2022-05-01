@@ -1,0 +1,35 @@
+* Usage - FULLCMS2 <SRC> <EXE> <WORK>
+
+* This script invokes WITHBIS2. See it for further information.
+
+
+&SRC = A
+&EXE = B
+&WORK = C
+
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&SRC = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&EXE = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&WORK = &1
+
+-FINARGS
+
+
+* Strictly, we're only expecting a blocksize of 80, but
+* mvsunzip can handle short blocks, so we specify the max
+FILEDEF INPUT TAP1 (LRECL 80 BLKSIZE 32720 RECFM FB
+MVSUNZIP DD:INPUT &SRC
+FILEDEF INPUT CLEAR
+
+
+EXEC WITHBIS2 &SRC &EXE &WORK
+
+
+VMARC PACK * * &EXE (TAP2 BLOCK 80

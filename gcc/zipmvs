@@ -1,0 +1,81 @@
+rm -f gccs.zip
+rm -f pdpi.zip
+rm -f gcci.zip
+rm -f gccsrc.zip
+rm -f pdpsrc.zip
+rm -f gccjcl.zip
+rm -f gccdoc.zip
+rm -f pdpdoc.zip
+rm -f gccprc.zip
+rm -f gccexec.zip
+rm -f pdpmac.zip
+rm -f stage0d.jcl
+rm -f alljcl.jcl
+rm -f alljcl.txt
+rm -f mvsendec.s
+rm -f hexdump.s
+rm -f dssrenam.s
+rm -f mvsunzip.s
+rm -f copyfile.s
+zip -0 -X gccs.zip *.s
+mkdir ../temp
+rm -f ../temp/*.s
+rm -f ../temp/*.h
+rm -f ../temp/*.c
+rm -f ../temp/*.def
+cd ../../pdos/pdpclib
+zip -0 -X ../../gcc/gcc/pdpi.zip *.h
+zip -0 -X ../../gcc/gcc/pdpsrc.zip *.c *.asm
+zip -0 -X ../../gcc/gcc/pdpdoc.zip *.txt
+zip -0 -X ../../gcc/gcc/pdpmac.zip *.mac
+cd ../../gcc/temp
+cp ../include/*.h .
+cp ../gcc/*.h .
+cp ../gcc/config/i370/*.h .
+cp ../gcc/*.def .
+mv builtin-attrs.def builtina.h
+mv builtin-types.def builtint.h
+mv builtins.def builtind.h
+mv c-common.def ccommond.h
+mv diagnostic.def diagndef.h
+mv machmode.def machmodd.h
+mv params.def paramsd.h
+mv predict.def predictd.h
+mv rtl.def rtld.h
+mv stab.def stabd.h
+mv timevar.def timevard.h
+mv tree.def treed.h
+mv insn-constants.h i-constants.h
+mv langhooks-def.h langhdef.h
+zip -0 -X ../gcc/gcci.zip *.h
+cp ../libiberty/*.c .
+cp ../gcc/*.c .
+cp ../gcc/config/i370/*.c .
+zip -0 -X ../gcc/gccsrc.zip *.c
+cd ../gcc
+zip -0 -X gccjcl.zip *.jcl
+zip -0 -X gccdoc.zip gccmvs.txt COPYING
+zip -0 -X -j gccdoc.zip config/i370/i370.md
+zip -0 -X gccdoc.zip c-parse.in
+zip -0 -X gccprc.zip *.prc
+zip -0 -X gccexec.zip *.exec *.parm
+
+# for integrity, on a 31-bit system you should really
+# delete these source files and allow them to be regenerated instead
+#zip -d gccsrc.zip genrtl.c
+#zip -d gccsrc.zip insn-attrtab.c
+#zip -d gccsrc.zip insn-emit.c
+#zip -d gccsrc.zip insn-extract.c
+#zip -d gccsrc.zip insn-opinit.c
+#zip -d gccsrc.zip insn-output.c
+#zip -d gccsrc.zip insn-peep.c
+#zip -d gccsrc.zip insn-recog.c
+#zip -d gccsrc.zip c-parse.c
+#zip -d gcci.zip genrtl.h
+#zip -d gcci.zip insn-attr.h
+#zip -d gcci.zip insn-codes.h
+#zip -d gcci.zip insn-config.h
+#zip -d gcci.zip i-constants.h
+#zip -d gcci.zip insn-flags.h
+#zip -d gcci.zip tm-preds.h
+#zip -d gcci.zip tree-check.h

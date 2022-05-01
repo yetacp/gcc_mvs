@@ -1,0 +1,67 @@
+* Usage - WITHBIS2 <SRC> <EXE> <WORK>
+
+* This script compiles all the files on SRC disk (default is A),
+* making use of bison and generating the generated files, then
+* compares the generated assembler to what is still on the WORK 
+* disk (default C), then copies the validated assembler plus
+* generated files to the EXE disk (default B).
+
+&SRC = A
+&EXE = B
+&WORK = C
+
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&SRC = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&EXE = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&WORK = &1
+
+-FINARGS
+
+
+COPY __HEADER H &SRC HEADER GCC &SRC (REPL
+
+* Get the old generated assembler back
+COPY * S &WORK = = &SRC (REPL
+
+* Build and generate generated files
+EXEC GENCOMP &SRC
+
+
+* Build GCC, without a source comparison or copying the
+* executables since we are doing that separately
+EXEC COMPILE &SRC &SRC &SRC
+
+
+* Compare generated assembler
+EXEC ITERGCC DIFFCMS Y Y Y Y &SRC &WORK
+
+
+* Save generated assembler
+COPY * S &SRC = = &EXE (REPL
+
+* Save generated files
+COPY GENRTL C &SRC = = &EXE (REPL
+COPY INSN-ATT C &SRC = = &EXE (REPL
+COPY INSN-EMI C &SRC = = &EXE (REPL
+COPY INSN-EXT C &SRC = = &EXE (REPL
+COPY INSN-OPI C &SRC = = &EXE (REPL
+COPY INSN-OUT C &SRC = = &EXE (REPL
+COPY INSN-PEE C &SRC = = &EXE (REPL
+COPY INSN-REC C &SRC = = &EXE (REPL
+COPY C-PARSE C &SRC = = &EXE (REPL
+
+COPY GENRTL H &SRC = = &EXE (REPL
+COPY INSN-ATT H &SRC = = &EXE (REPL
+COPY INSN-COD H &SRC = = &EXE (REPL
+COPY INSN-CON H &SRC = = &EXE (REPL
+COPY I-CONSTA H &SRC = = &EXE (REPL
+COPY INSN-FLA H &SRC = = &EXE (REPL
+COPY TM-PREDS H &SRC = = &EXE (REPL
+COPY TREE-CHE H &SRC = = &EXE (REPL

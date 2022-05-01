@@ -1,0 +1,1 @@
+gcc386 -fno-common -O2 -S -D__32BIT__ -D__PDOS386__ -DI386 -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -I ../../pdos/pdpclib -I ../../pdos/src -I . -I config/i386 -I config -I ../include %2 %3 %4 %5 %6 %7 %8 %9 %1

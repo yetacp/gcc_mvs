@@ -1,0 +1,1 @@
+-Os -S -ansi -pedantic-errors -remap -DHAVE_CONFIG_H -DGENFILES -o dd:out -

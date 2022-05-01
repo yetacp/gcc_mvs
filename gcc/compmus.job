@@ -1,0 +1,2914 @@
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/inc rexx
+'purge *'
+'purge old\*'
+'purge new\*'
+'purge exe\*'
+'rmdir old'
+'rmdir new'
+'rmdir exe'
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file in tape osrecfm(u) oslrecl(0) osblksize(32760) vol(PCTOMF) old
+/parm dd:in
+/load xmon
+mvsunzip n(mvsunzip.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/inc rexx
+'copy *.exec *'
+'copy *.mac *.m'
+'copy musstart.asm musstart.s'
+'copy mussupa.asm mussupa.s'
+'mkdir old'
+'copy *.s old\*.s'
+'musaall'
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(gcc.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/file lkedwork uds(@bld.lked01) vol(musicz) bufno(0)
+/etc new delete nrec(64000)
+/load lked
+/job map,nogo,print,stats,mode=os,name=gcc
+.org 4a00
+/inc alias.obj
+/inc attribs.obj
+/inc bb-reorder.obj
+/inc bitmap.obj
+/inc builtins.obj
+/inc c-aux-info.obj
+/inc c-common.obj
+/inc c-convert.obj
+/inc c-decl.obj
+/inc c-errors.obj
+/inc c-format.obj
+/inc c-lang.obj
+/inc c-lex.obj
+/inc c-objc-common.obj
+/inc c-parse.obj
+/inc c-pragma.obj
+/inc c-semantics.obj
+/inc c-typeck.obj
+/inc caller-save.obj
+/inc calls.obj
+/inc cfg.obj
+/inc cfganal.obj
+/inc cfgbuild.obj
+/inc cfgcleanup.obj
+/inc cfglayout.obj
+/inc cfgloop.obj
+/inc cfgrtl.obj
+/inc combine.obj
+/inc conflict.obj
+/inc convert.obj
+/inc cppdefault.obj
+/inc cpperror.obj
+/inc cppexp.obj
+/inc cppfiles.obj
+/inc cpphash.obj
+/inc cppinit.obj
+/inc cpplex.obj
+/inc cpplib.obj
+/inc cppmacro.obj
+/inc cppmain.obj
+/inc cppspec.obj
+/inc cse.obj
+/inc cselib.obj
+/inc debug.obj
+/inc dependence.obj
+/inc df.obj
+/inc diagnostic.obj
+/inc dominance.obj
+/inc dwarf2asm.obj
+/inc dwarf2out.obj
+/inc emit-rtl.obj
+/inc except.obj
+/inc explow.obj
+/inc expmed.obj
+/inc expr.obj
+/inc final.obj
+/inc flow.obj
+/inc fold-const.obj
+/inc function.obj
+/inc gcc.obj
+/inc gccspec.obj
+/inc gcse.obj
+/inc genrtl.obj
+/inc ggc-common.obj
+/inc ggc-page.obj
+/inc global.obj
+/inc graph.obj
+/inc hash.obj
+/inc hashtable.obj
+/inc hooks.obj
+/inc ifcvt.obj
+/inc insn-attrtab.obj
+/inc insn-emit.obj
+/inc insn-extract.obj
+/inc insn-opinit.obj
+/inc insn-output.obj
+/inc insn-recog.obj
+/inc integrate.obj
+/inc jump.obj
+/inc langhooks.obj
+/inc lcm.obj
+/inc line-map.obj
+/inc lists.obj
+/inc local-alloc.obj
+/inc loop.obj
+/inc mkdeps.obj
+/inc optabs.obj
+/inc params.obj
+/inc predict.obj
+/inc prefix.obj
+/inc print-rtl.obj
+/inc print-tree.obj
+/inc profile.obj
+/inc real.obj
+/inc recog.obj
+/inc regclass.obj
+/inc regmove.obj
+/inc regrename.obj
+/inc reload.obj
+/inc reload1.obj
+/inc resource.obj
+/inc rtl-error.obj
+/inc rtl.obj
+/inc rtlanal.obj
+/inc sbitmap.obj
+/inc sibcall.obj
+/inc simplify-rtx.obj
+/inc ssa-ccp.obj
+/inc ssa-dce.obj
+/inc ssa.obj
+/inc stmt.obj
+/inc stor-layout.obj
+/inc stringpool.obj
+/inc timevar.obj
+/inc toplev.obj
+/inc tree-dump.obj
+/inc tree-inline.obj
+/inc tree.obj
+/inc unroll.obj
+/inc varasm.obj
+/inc varray.obj
+/inc version.obj
+/inc xmalloc.obj
+/inc xstrerror.obj
+/inc xstrdup.obj
+/inc xexit.obj
+/inc concat.obj
+/inc hex.obj
+/inc alloca.obj
+/inc lbasename.obj
+/inc obstack.obj
+/inc strsignal.obj
+/inc safe-ctype.obj
+/inc splay-tree.obj
+/inc fibheap.obj
+/inc hashtab.obj
+/inc asprintf.obj
+/inc vasprintf.obj
+/inc getpagesize.obj
+/inc partition.obj
+/inc i370-c.obj
+/inc i370.obj
+/inc unixio.obj
+/inc stdio.obj
+/inc stdlib.obj
+/inc ctype.obj
+/inc string.obj
+/inc time.obj
+/inc errno.obj
+/inc assert.obj
+/inc locale.obj
+/inc math.obj
+/inc setjmp.obj
+/inc signal.obj
+/inc start.obj
+/inc __memmgr.obj
+/inc musstart.obj
+/inc mussupa.obj
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=3000,xregion=64m
+/parm *
+/inc dir
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/parm --version
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/PARM *.S
+/INC PURGE
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(alias.c) shr
+/file o n(alias.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(attribs.c) shr
+/file o n(attribs.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(bb-reorder.c) shr
+/file o n(bb-reorder.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(bitmap.c) shr
+/file o n(bitmap.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(builtins.c) shr
+/file o n(builtins.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-aux-info.c) shr
+/file o n(c-aux-info.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-common.c) shr
+/file o n(c-common.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-convert.c) shr
+/file o n(c-convert.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-decl.c) shr
+/file o n(c-decl.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-errors.c) shr
+/file o n(c-errors.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-format.c) shr
+/file o n(c-format.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-lang.c) shr
+/file o n(c-lang.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-lex.c) shr
+/file o n(c-lex.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-objc-common.c) shr
+/file o n(c-objc-common.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-parse.c) shr
+/file o n(c-parse.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-pragma.c) shr
+/file o n(c-pragma.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-semantics.c) shr
+/file o n(c-semantics.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(c-typeck.c) shr
+/file o n(c-typeck.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(caller-save.c) shr
+/file o n(caller-save.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(calls.c) shr
+/file o n(calls.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfg.c) shr
+/file o n(cfg.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfganal.c) shr
+/file o n(cfganal.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfgbuild.c) shr
+/file o n(cfgbuild.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfgcleanup.c) shr
+/file o n(cfgcleanup.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfglayout.c) shr
+/file o n(cfglayout.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfgloop.c) shr
+/file o n(cfgloop.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cfgrtl.c) shr
+/file o n(cfgrtl.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(combine.c) shr
+/file o n(combine.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(conflict.c) shr
+/file o n(conflict.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(convert.c) shr
+/file o n(convert.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppdefault.c) shr
+/file o n(cppdefault.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cpperror.c) shr
+/file o n(cpperror.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppexp.c) shr
+/file o n(cppexp.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppfiles.c) shr
+/file o n(cppfiles.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cpphash.c) shr
+/file o n(cpphash.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppinit.c) shr
+/file o n(cppinit.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cpplex.c) shr
+/file o n(cpplex.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cpplib.c) shr
+/file o n(cpplib.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppmacro.c) shr
+/file o n(cppmacro.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppmain.c) shr
+/file o n(cppmain.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cppspec.c) shr
+/file o n(cppspec.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cse.c) shr
+/file o n(cse.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(cselib.c) shr
+/file o n(cselib.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(debug.c) shr
+/file o n(debug.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(dependence.c) shr
+/file o n(dependence.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(df.c) shr
+/file o n(df.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(diagnostic.c) shr
+/file o n(diagnostic.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(dominance.c) shr
+/file o n(dominance.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(dwarf2asm.c) shr
+/file o n(dwarf2asm.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(dwarf2out.c) shr
+/file o n(dwarf2out.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(emit-rtl.c) shr
+/file o n(emit-rtl.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(except.c) shr
+/file o n(except.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(explow.c) shr
+/file o n(explow.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(expmed.c) shr
+/file o n(expmed.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(expr.c) shr
+/file o n(expr.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(final.c) shr
+/file o n(final.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(flow.c) shr
+/file o n(flow.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(fold-const.c) shr
+/file o n(fold-const.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(function.c) shr
+/file o n(function.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(gcc.c) shr
+/file o n(gcc.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(gccspec.c) shr
+/file o n(gccspec.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(gcse.c) shr
+/file o n(gcse.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(genrtl.c) shr
+/file o n(genrtl.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ggc-common.c) shr
+/file o n(ggc-common.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ggc-page.c) shr
+/file o n(ggc-page.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(global.c) shr
+/file o n(global.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(graph.c) shr
+/file o n(graph.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(hash.c) shr
+/file o n(hash.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(hashtable.c) shr
+/file o n(hashtable.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(hooks.c) shr
+/file o n(hooks.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ifcvt.c) shr
+/file o n(ifcvt.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(insn-attrtab.c) shr
+/file o n(insn-attrtab.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(insn-emit.c) shr
+/file o n(insn-emit.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(insn-extract.c) shr
+/file o n(insn-extract.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(insn-opinit.c) shr
+/file o n(insn-opinit.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(insn-output.c) shr
+/file o n(insn-output.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(insn-recog.c) shr
+/file o n(insn-recog.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(integrate.c) shr
+/file o n(integrate.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(jump.c) shr
+/file o n(jump.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(langhooks.c) shr
+/file o n(langhooks.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(lcm.c) shr
+/file o n(lcm.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(line-map.c) shr
+/file o n(line-map.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(lists.c) shr
+/file o n(lists.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(local-alloc.c) shr
+/file o n(local-alloc.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(loop.c) shr
+/file o n(loop.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(mkdeps.c) shr
+/file o n(mkdeps.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(optabs.c) shr
+/file o n(optabs.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(params.c) shr
+/file o n(params.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(predict.c) shr
+/file o n(predict.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(prefix.c) shr
+/file o n(prefix.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(print-rtl.c) shr
+/file o n(print-rtl.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(print-tree.c) shr
+/file o n(print-tree.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(profile.c) shr
+/file o n(profile.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(real.c) shr
+/file o n(real.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(recog.c) shr
+/file o n(recog.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(regclass.c) shr
+/file o n(regclass.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(regmove.c) shr
+/file o n(regmove.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(regrename.c) shr
+/file o n(regrename.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(reload.c) shr
+/file o n(reload.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(reload1.c) shr
+/file o n(reload1.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(resource.c) shr
+/file o n(resource.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(rtl-error.c) shr
+/file o n(rtl-error.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(rtl.c) shr
+/file o n(rtl.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(rtlanal.c) shr
+/file o n(rtlanal.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(sbitmap.c) shr
+/file o n(sbitmap.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(sibcall.c) shr
+/file o n(sibcall.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(simplify-rtx.c) shr
+/file o n(simplify-rtx.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ssa-ccp.c) shr
+/file o n(ssa-ccp.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ssa-dce.c) shr
+/file o n(ssa-dce.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ssa.c) shr
+/file o n(ssa.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stmt.c) shr
+/file o n(stmt.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stor-layout.c) shr
+/file o n(stor-layout.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stringpool.c) shr
+/file o n(stringpool.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(timevar.c) shr
+/file o n(timevar.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(toplev.c) shr
+/file o n(toplev.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(tree-dump.c) shr
+/file o n(tree-dump.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(tree-inline.c) shr
+/file o n(tree-inline.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(tree.c) shr
+/file o n(tree.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(unroll.c) shr
+/file o n(unroll.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(varasm.c) shr
+/file o n(varasm.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(varray.c) shr
+/file o n(varray.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(version.c) shr
+/file o n(version.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(xmalloc.c) shr
+/file o n(xmalloc.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(xstrerror.c) shr
+/file o n(xstrerror.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(xstrdup.c) shr
+/file o n(xstrdup.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(xexit.c) shr
+/file o n(xexit.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(concat.c) shr
+/file o n(concat.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(hex.c) shr
+/file o n(hex.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(alloca.c) shr
+/file o n(alloca.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(lbasename.c) shr
+/file o n(lbasename.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(obstack.c) shr
+/file o n(obstack.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(strsignal.c) shr
+/file o n(strsignal.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(safe-ctype.c) shr
+/file o n(safe-ctype.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(splay-tree.c) shr
+/file o n(splay-tree.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(fibheap.c) shr
+/file o n(fibheap.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(hashtab.c) shr
+/file o n(hashtab.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(asprintf.c) shr
+/file o n(asprintf.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(vasprintf.c) shr
+/file o n(vasprintf.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(getpagesize.c) shr
+/file o n(getpagesize.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(partition.c) shr
+/file o n(partition.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(i370-c.c) shr
+/file o n(i370-c.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(i370.c) shr
+/file o n(i370.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(unixio.c) shr
+/file o n(unixio.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -remap -DHAVE_CONFIG_H -DIN_GCC -DPUREISO -DIFOX -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stdio.c) shr
+/file o n(stdio.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stdlib.c) shr
+/file o n(stdlib.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ctype.c) shr
+/file o n(ctype.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(string.c) shr
+/file o n(string.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(time.c) shr
+/file o n(time.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(errno.c) shr
+/file o n(errno.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(assert.c) shr
+/file o n(assert.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(locale.c) shr
+/file o n(locale.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(math.c) shr
+/file o n(math.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(setjmp.c) shr
+/file o n(setjmp.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(signal.c) shr
+/file o n(signal.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(start.c) shr
+/file o n(start.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(__memmgr.c) shr
+/file o n(__memmgr.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DUSE_MEMMGR -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/inc rexx
+'copy musstart.asm musstart.s'
+'copy mussupa.asm mussupa.s'
+'copy gcc.lmod old\gcc.lmod'
+'purge gcc.lmod'
+'musaall'
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(gcc.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/file lkedwork uds(@bld.lked01) vol(musicz) bufno(0)
+/etc new delete nrec(64000)
+/load lked
+/job map,nogo,print,stats,mode=os,name=gcc
+.org 4a00
+/inc alias.obj
+/inc attribs.obj
+/inc bb-reorder.obj
+/inc bitmap.obj
+/inc builtins.obj
+/inc c-aux-info.obj
+/inc c-common.obj
+/inc c-convert.obj
+/inc c-decl.obj
+/inc c-errors.obj
+/inc c-format.obj
+/inc c-lang.obj
+/inc c-lex.obj
+/inc c-objc-common.obj
+/inc c-parse.obj
+/inc c-pragma.obj
+/inc c-semantics.obj
+/inc c-typeck.obj
+/inc caller-save.obj
+/inc calls.obj
+/inc cfg.obj
+/inc cfganal.obj
+/inc cfgbuild.obj
+/inc cfgcleanup.obj
+/inc cfglayout.obj
+/inc cfgloop.obj
+/inc cfgrtl.obj
+/inc combine.obj
+/inc conflict.obj
+/inc convert.obj
+/inc cppdefault.obj
+/inc cpperror.obj
+/inc cppexp.obj
+/inc cppfiles.obj
+/inc cpphash.obj
+/inc cppinit.obj
+/inc cpplex.obj
+/inc cpplib.obj
+/inc cppmacro.obj
+/inc cppmain.obj
+/inc cppspec.obj
+/inc cse.obj
+/inc cselib.obj
+/inc debug.obj
+/inc dependence.obj
+/inc df.obj
+/inc diagnostic.obj
+/inc dominance.obj
+/inc dwarf2asm.obj
+/inc dwarf2out.obj
+/inc emit-rtl.obj
+/inc except.obj
+/inc explow.obj
+/inc expmed.obj
+/inc expr.obj
+/inc final.obj
+/inc flow.obj
+/inc fold-const.obj
+/inc function.obj
+/inc gcc.obj
+/inc gccspec.obj
+/inc gcse.obj
+/inc genrtl.obj
+/inc ggc-common.obj
+/inc ggc-page.obj
+/inc global.obj
+/inc graph.obj
+/inc hash.obj
+/inc hashtable.obj
+/inc hooks.obj
+/inc ifcvt.obj
+/inc insn-attrtab.obj
+/inc insn-emit.obj
+/inc insn-extract.obj
+/inc insn-opinit.obj
+/inc insn-output.obj
+/inc insn-recog.obj
+/inc integrate.obj
+/inc jump.obj
+/inc langhooks.obj
+/inc lcm.obj
+/inc line-map.obj
+/inc lists.obj
+/inc local-alloc.obj
+/inc loop.obj
+/inc mkdeps.obj
+/inc optabs.obj
+/inc params.obj
+/inc predict.obj
+/inc prefix.obj
+/inc print-rtl.obj
+/inc print-tree.obj
+/inc profile.obj
+/inc real.obj
+/inc recog.obj
+/inc regclass.obj
+/inc regmove.obj
+/inc regrename.obj
+/inc reload.obj
+/inc reload1.obj
+/inc resource.obj
+/inc rtl-error.obj
+/inc rtl.obj
+/inc rtlanal.obj
+/inc sbitmap.obj
+/inc sibcall.obj
+/inc simplify-rtx.obj
+/inc ssa-ccp.obj
+/inc ssa-dce.obj
+/inc ssa.obj
+/inc stmt.obj
+/inc stor-layout.obj
+/inc stringpool.obj
+/inc timevar.obj
+/inc toplev.obj
+/inc tree-dump.obj
+/inc tree-inline.obj
+/inc tree.obj
+/inc unroll.obj
+/inc varasm.obj
+/inc varray.obj
+/inc version.obj
+/inc xmalloc.obj
+/inc xstrerror.obj
+/inc xstrdup.obj
+/inc xexit.obj
+/inc concat.obj
+/inc hex.obj
+/inc alloca.obj
+/inc lbasename.obj
+/inc obstack.obj
+/inc strsignal.obj
+/inc safe-ctype.obj
+/inc splay-tree.obj
+/inc fibheap.obj
+/inc hashtab.obj
+/inc asprintf.obj
+/inc vasprintf.obj
+/inc getpagesize.obj
+/inc partition.obj
+/inc i370-c.obj
+/inc i370.obj
+/inc unixio.obj
+/inc stdio.obj
+/inc stdlib.obj
+/inc ctype.obj
+/inc string.obj
+/inc time.obj
+/inc errno.obj
+/inc assert.obj
+/inc locale.obj
+/inc math.obj
+/inc setjmp.obj
+/inc signal.obj
+/inc start.obj
+/inc __memmgr.obj
+/inc musstart.obj
+/inc mussupa.obj
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/inc rexx
+'mkdir new'
+'copy *.s new\*.s'
+'musdall'
+'copy pdp370.m pdptop.m -repl'
+'purge *.obj'
+'purge *.s'
+'copy musstart.asm musstart.s'
+'copy mussupa.asm mussupa.s'
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file o prt osrecfm(f) oslrecl(256)
+/file sysin n(pdptest.c) shr
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stdio.c) shr
+/file o n(stdio.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(stdlib.c) shr
+/file o n(stdlib.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(ctype.c) shr
+/file o n(ctype.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(string.c) shr
+/file o n(string.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(time.c) shr
+/file o n(time.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(errno.c) shr
+/file o n(errno.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(assert.c) shr
+/file o n(assert.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(locale.c) shr
+/file o n(locale.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(math.c) shr
+/file o n(math.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(setjmp.c) shr
+/file o n(setjmp.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(signal.c) shr
+/file o n(signal.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(start.c) shr
+/file o n(start.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(copyfile.c) shr
+/file o n(copyfile.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(hexdump.c) shr
+/file o n(hexdump.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(mvsunzip.c) shr
+/file o n(mvsunzip.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(mvsendec.c) shr
+/file o n(mvsendec.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -Os -S -DMUSIC -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/file sysprint prt osrecfm(f) oslrecl(256)
+/file sysin n(pdptest.c) shr
+/file o n(pdptest.s) new recfm(v) sp(1000)
+/file sysincl pds(*.h)
+/file include pds(*.h)
+/parm -O0 -S -o dd:o -
+/load xmon
+gcc n(gcc.lmod) lcparm
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/inc rexx
+'musaone stdio'
+'musaone stdlib'
+'musaone ctype'
+'musaone string'
+'musaone time'
+'musaone errno'
+'musaone assert'
+'musaone locale'
+'musaone math'
+'musaone setjmp'
+'musaone signal'
+'musaone start'
+'musaone musstart'
+'musaone mussupa'
+
+'musaone pdptest'
+'musaone copyfile'
+'musaone hexdump'
+'musaone mvsunzip'
+'musaone mvsendec'
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/SAVE PDPLINK.INC REPL
+/inc stdio.obj
+/inc stdlib.obj
+/inc ctype.obj
+/inc string.obj
+/inc time.obj
+/inc errno.obj
+/inc assert.obj
+/inc locale.obj
+/inc math.obj
+/inc setjmp.obj
+/inc signal.obj
+/inc start.obj
+/inc musstart.obj
+/inc mussupa.obj
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(pdptest.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/load lked
+/job map,nogo,print,stats,mode=os,name=pdptest
+.org 4a00
+/inc pdptest.obj
+/inc pdplink.inc(nest)
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(copyfile.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/load lked
+/job map,nogo,print,stats,mode=os,name=copyfile
+.org 4a00
+/inc copyfile.obj
+/inc pdplink.inc(nest)
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(hexdump.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/load lked
+/job map,nogo,print,stats,mode=os,name=hexdump
+.org 4a00
+/inc hexdump.obj
+/inc pdplink.inc(nest)
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(mvsunzip.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/load lked
+/job map,nogo,print,stats,mode=os,name=mvsunzip
+.org 4a00
+/inc mvsunzip.obj
+/inc pdplink.inc(nest)
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file lmod n(mvsendec.lmod) new(repl) lr(128) recfm(f) sp(100) shr
+/load lked
+/job map,nogo,print,stats,mode=os,name=mvsendec
+.org 4a00
+/inc mvsendec.obj
+/inc pdplink.inc(nest)
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/SAVE PDPTEST REPL
+/inc rexx
+parse arg parms
+queue "/sys region=9999"
+queue "/file sysprint prt osrecfm(f) oslrecl(256)"
+queue "/parm " parms
+queue "/load xmon"
+queue "pdptest n(pdptest.lmod) lcparm"
+"EXEC"
+exit rc
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/SAVE COPYFILE REPL
+/inc rexx
+parse arg parms
+queue "/sys region=9999"
+queue "/file sysprint prt osrecfm(f) oslrecl(256)"
+queue "/parm " parms
+queue "/load xmon"
+queue "copyfile n(copyfile.lmod) lcparm"
+"EXEC"
+exit rc
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/SAVE HEXDUMP REPL
+/inc rexx
+parse arg parms
+queue "/sys region=9999"
+queue "/file sysprint prt osrecfm(f) oslrecl(256)"
+queue "/parm " parms
+queue "/load xmon"
+queue "hexdump n(hexdump.lmod) lcparm"
+"EXEC"
+exit rc
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/SAVE MVSUNZIP REPL
+/inc rexx
+parse arg parms
+queue "/sys region=9999"
+queue "/file sysprint prt osrecfm(f) oslrecl(256)"
+queue "/parm " parms
+queue "/load xmon"
+queue "mvsunzip n(mvsunzip.lmod) lcparm"
+"EXEC"
+exit rc
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/SAVE MVSENDEC REPL
+/inc rexx
+parse arg parms
+queue "/sys region=9999"
+queue "/file sysprint prt osrecfm(f) oslrecl(256)"
+queue "/parm " parms
+queue "/load xmon"
+queue "mvsendec n(mvsendec.lmod) lcparm"
+"EXEC"
+exit rc
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/inc rexx
+'pdptest alpha braVo'
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999,xregion=64m
+/inc rexx
+'mkdir exe'
+
+'copy gcc.lmod exe\gcc.lmod'
+
+'copy assert.h exe\assert.h'
+'copy ctype.h exe\ctype.h'
+'copy errno.h exe\errno.h'
+'copy float.h exe\float.h'
+'copy limits.h exe\limits.h'
+'copy locale.h exe\locale.h'
+'copy math.h exe\math.h'
+'copy mvssupa.h exe\mvssupa.h'
+'copy setjmp.h exe\setjmp.h'
+'copy signal.h exe\signal.h'
+'copy stdarg.h exe\stdarg.h'
+'copy stddef.h exe\stddef.h'
+'copy stdio.h exe\stdio.h'
+'copy stdlib.h exe\stdlib.h'
+'copy string.h exe\string.h'
+'copy time.h exe\time.h'
+'copy __memmgr.h exe\__memmgr.h'
+
+'purge pdptest.obj'
+'purge copyfile.obj'
+'purge hexdump.obj'
+'purge mvsunzip.obj'
+'purge mvsendec.obj'
+
+'copy *.obj exe\*.obj'
+
+'copy pdplink.inc exe\pdplink.inc'
+
+'copy copyfile.lmod exe\copyfile.lmod'
+'copy copyfile exe\copyfile'
+'copy hexdump.lmod exe\hexdump.lmod'
+'copy hexdump exe\hexdump'
+'copy mvsunzip.lmod exe\mvsunzip.lmod'
+'copy mvsunzip exe\mvsunzip'
+'copy mvsendec.lmod exe\mvsendec.lmod'
+'copy mvsendec exe\mvsendec'
+
+/END
+
+/ID SAVE-JOB-123456 @BLD000 9999 9999 9999 9999
+/PASSWORD=BLD000
+/sys region=9999
+/file 1 tape vol(MFTOPC) new
+/inc mfarc2
+LIST=T
+@BLD000:EXE\*
+/END

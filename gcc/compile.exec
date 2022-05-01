@@ -1,0 +1,169 @@
+&TRACE OFF
+
+* Usage - COMPILE <SRC> <EXE> <WORK>
+
+* This script compiles all the files on SRC disk (default is A)
+* and copies the resultant modules to the EXE disk (default B)
+* while using the WORK disk (default C) as a temporary area
+
+&SRC = A
+&EXE = B
+&WORK = C
+
+* Set this if you want to build a 370 version of PDPCLIB
+* so that your executables are maximally portable. Set
+* to 390 or 380 otherwise. Note that if you set to 380
+* you should also change stdpdp.parm to define USE_MEMMGR
+&BLD = 370
+
+* Set this to 1 if you have a pure 370 environment (ie
+* not z/VM and not VM/380) so can't do 31-bit compiles
+&ALL370 = 0
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&SRC = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&EXE = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+
+&IF &INDEX EQ 0 &GOTO -FINARGS
+&WORK = &1
+
+-FINARGS
+
+
+&IF &SRC EQ &WORK &GOTO -NOERASE
+* Erase the work disk and avoid errors by copying
+* a dummy file
+COPY PDPTOP MAC &SRC = = &WORK (REPL
+LIST * * &WORK (EXEC
+EXEC CMS ERASE
+-NOERASE
+
+COPY PDPTOP MAC &SRC = COPY = (REPL LRECL 80 RECFM F
+COPY PDPMAIN MAC &SRC = COPY = (REPL LRECL 80 RECFM F
+COPY PDPPRLG MAC &SRC = MACRO = (REPL LRECL 80 RECFM F
+COPY PDPEPIL MAC &SRC = MACRO = (REPL LRECL 80 RECFM F
+COPY __HEADER H &SRC HEADER GCC &SRC (REPL
+
+MACLIB GEN PDPCLIB PDPPRLG PDPEPIL PDPTOP PDPMAIN
+GLOBAL MACLIB PDPCLIB OSMACRO DMSGPI
+
+* Pass 1
+EXEC GCCAALL &SRC
+EXEC GCCLINK &SRC
+EXEC MKCLIB &SRC
+
+* Skip the rebuild and verification on a 370 environment
+* since there isn't enough memory
+&IF &ALL370 = 1 &GOTO -NO31
+
+* Make copy of assembler for later comparison
+&IF &SRC EQ &WORK &GOTO -NOCPCMP
+COPY * S &SRC = = &WORK (REPL
+-NOCPCMP
+
+* Pass 2
+EXEC GCCCALL &SRC
+EXEC GCCAALL &SRC
+EXEC GCCLINK &SRC
+EXEC MKCLIB &SRC
+
+* Compare assembler source is identical. Note that
+* if you wish to use an option other than -Os to
+* compile, you'll need to do a 3rd pass for
+* matching assembler, due to low-level floating
+* point quirks.
+&IF &SRC EQ &WORK &GOTO -NOCMPR
+EXEC ITERGCC DIFFCMS Y Y Y Y &SRC &WORK
+-NOCMPR
+
+* Now we need a normal S/370 or S/390 (no memmgr,
+* no S/380) version of PDPCLIB. So let's
+* compile what we need, using the new C compiler
+
+&IF &BLD NE 370 &GOTO -NO370
+COPY PDP370 MAC &SRC PDPTOP COPY = (REPL LRECL 80 RECFM F
+-NO370
+MACLIB GEN PDPCLIB PDPPRLG PDPEPIL PDPTOP PDPMAIN
+GLOBAL MACLIB OSMACRO DMSGPI PDPCLIB
+&ASMNAME = ASMAHL
+
+EXEC GCCAONE CMSSUPA &SRC &ASMNAME
+EXEC GCCAONE CMSSTART &SRC &ASMNAME
+EXEC GCCE START C &SRC (PARM STDPDP
+EXEC GCCE STDIO C &SRC (PARM STDPDP
+EXEC GCCE STDLIB C &SRC (PARM STDPDP
+EXEC GCCE CTYPE C &SRC (PARM STDPDP
+EXEC GCCE STRING C &SRC (PARM STDPDP
+EXEC GCCE TIME C &SRC (PARM STDPDP
+EXEC GCCE ERRNO C &SRC (PARM STDPDP
+EXEC GCCE ASSERT C &SRC (PARM STDPDP
+EXEC GCCE LOCALE C &SRC (PARM STDPDP
+EXEC GCCE MATH C &SRC (PARM STDPDP
+EXEC GCCE SETJMP C &SRC (PARM STDPDP
+EXEC GCCE SIGNAL C &SRC (PARM STDPDP
+EXEC GCCE __MEMMGR C &SRC (PARM STDPDP
+EXEC MKCLIB &SRC
+
+
+* Now we build a 370 version of the executable, even though
+* we're on an 380+ system, because we have everything needed
+* available.
+&IF &BLD NE 370 &GOTO -NO370B
+EXEC GCCLINK &SRC GCC370
+-NO370B
+
+
+-NO31
+
+
+* Compile a utility needed to change CSECT names
+EXEC GCCE NAMCSECT C &SRC
+EXEC CLOAD NAMCSECT
+GENMOD NAMCSECT
+
+
+* Generate PDPCLIB TXTLIB
+EXEC MKPDPC &SRC &ASMNAME STDPDP
+
+GLOBAL TXTLIB PDPCLIB
+
+
+* Build some useful utilities
+EXEC GCCE MVSUNZIP C &SRC
+LOAD MVSUNZIP (NOAUTO NOMAP
+GENMOD MVSUNZIP
+
+EXEC GCCE HEXDUMP C &SRC
+LOAD HEXDUMP (NOAUTO NOMAP
+GENMOD HEXDUMP
+
+EXEC GCCE MVSENDEC C &SRC
+LOAD MVSENDEC (NOAUTO NOMAP
+GENMOD MVSENDEC
+
+* Rename COPYFILE since it clashes with CMS
+COPY COPYFILE C &SRC CPYFIL C &SRC (REPLACE
+EXEC GCCE CPYFIL C &SRC
+LOAD CPYFIL (NOAUTO NOMAP
+GENMOD CPYFIL
+
+* Compile example program
+EXEC GCCE PDPTEST C &SRC
+LOAD PDPTEST (NOAUTO NOMAP
+GENMOD PDPTEST
+
+* Copy important stuff onto the B disk
+&IF &SRC EQ &EXE &GOTO -NOCPY
+EXEC COPYGCC &SRC &EXE
+-NOCPY
+
+
+* Quick test using pdptest
+PDPTEST PaulEdwards was Here
+
+* Build 380 version of C library post-build
+* EXEC MAKE380 &SRC

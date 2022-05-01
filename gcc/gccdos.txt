@@ -1,0 +1,23 @@
+To build GCC for 32-bit MSDOS (aka PDOS/386),
+you need to change gencomp.bat and stdcompp.bat
+(just at the top) then run gencomp to generate
+new insn* files, then you need to run compilei.bat
+to generate the cross-compiler. Ignore the
+error about compiling winnt.c. Then you can
+optionally run comp386.bat if you want to build
+a native PDOS/386 compiler (a.out).
+
+To build GCC for 32-bit Windows, you need to
+change config.h like this:
+
+#include "uwin.h" /* for Windows PE */
+/* #include "pdos386.h" */ /* for a.out */
+
+And then do the above steps, except:
+1. Rename the built gcc386.exe to gccwin.exe
+after running compilei
+2. Run compwin instead of comp386
+3. Rename the built gcc-pdos.exe to gccwin.exe
+4. Run compwin again and the new gcc-pdos.exe
+should be nearly identical to gccwin.exe, and
+you can rename gcc-pdos.exe to gccwin.exe

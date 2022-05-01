@@ -1,0 +1,27 @@
+*******************************************************************
+*
+* This EXEC assembles a single assembler (S) file
+* Usage: GCCAAONE <FILE> <DISK> [ASMNAME]
+*
+*******************************************************************
+&CONTROL
+
+&ASMNAME = ASSEMBLE
+
+&FILE = &1
+&DISK = &2
+
+&IF &INDEX < 3 &GOTO -NOASMNM
+&ASMNAME = &3
+-NOASMNM
+
+* Create temporary file in F instead of V format for
+* the assembler, and use normal name for assembler
+* files
+COPY &FILE S &DISK = ASSEMBLE &DISK (RECFM F LRECL 80 REPLACE
+
+* Assemble
+&ASMNAME &FILE (NOLIST
+
+* Delete temporary file
+ERASE &FILE ASSEMBLE &DISK

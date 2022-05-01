@@ -1,0 +1,418 @@
+Release Notes for GCCVSE
+------------------------
+
+This document explains what needs to be done to get GCCMVS from:
+
+http://gccmvs.sourceforge.net
+
+to run on z/VSE (or VSE/380). The code is designed to work on
+DOS/VS through to z/VSE. You just need to set the
+appropriate configuration before building.
+
+The notes for the MVS version of the compiler (gccmvs.txt)
+should be read in conjunction with this document. In particlar
+the section on conversion from ASCII to EBCDIC is relevant to VSE.
+That file is contained within the source code patch, and
+you should obtain that, and the base source code, where
+the COPYING file is, to read the license, as these are all
+considered to be part of the same package, broken up for
+convenience).
+
+
+
+Installing
+----------
+
+Assuming you wish to use the shipped executables directly,
+the process is as follows.
+
+GCCVSE is shipped as object code which was punched with
+CSERV. To reverse that process, you need to invoke LNKEDT.
+Getting the object code onto disk (via e.g. ftp, emulated
+tape) is outside the scope of this document. The sample
+instvse.jcl (and the example instvse.bat that invokes that
+on a Windows system running VSE/380) is set up by default
+to read from a RECFM=FB,LRECL=80,BLKSIZE=3440 (RECFM=F
+also fine) tape using OBJMAINT (which deblocks it if it
+was blocked).
+
+Once the object code is on disk, it is fed straight into
+LNKEDT which catalogs all the phases, plus some
+pseudo-phases. More JCL and (just-loaded) utilities 
+extract the pseudo-phases and convert them into relocatable
+object, macros, and copybooks.
+
+
+
+Using
+-----
+
+Here is some example JCL. Your source code must be in one
+of the formats currently supported by PDPCLIB, e.g. F80
+and coming from SYSIPT. Header files will need to be put
+into the CIL in the same manner stdio.h etc are.
+
+
+* $$ JOB JNM=VSEJOB
+* $$ LST LST=SYSLST,CLASS=A,RBM=999999
+// JOB VSEJOB
+*
+*
+* Compile a sample C program.
+*
+*
+* This job allocates space as follows:
+* 10000,100 SPACE-SYSPCH
+* 11000,100 SPACE-SYSLNK
+*
+*
+*
+
+* Standard assignments for C programs
+*
+// ASSGN SYS000,SYSLNK
+// ASSGN SYS005,SYSLST
+// ASSGN SYS007,SYSPCH
+*
+*
+* Compile zztest
+*
+// DLBL IJSYSPH,'ZZTEST.ASM',0,SD
+// EXTENT SYSPCH,,,,10000,100 SPACE-SYSPCH
+ASSGN SYSPCH,SYS000
+// EXEC GCC,SIZE=AUTO,PARM='-S -o dd:syspunch -'
+#include <stdio.h>
+
+int main(int argc, char **argv)
+{
+    int x;
+    
+    printf("Hi %s. This is a test of GCCVSE\n", *(argv + 1));
+    return (0);
+}
+/*
+CLOSE SYSPCH,PUNCH
+*
+*
+* assemble zztest
+*
+// DLBL IJSYSLN,,0,SD
+// EXTENT SYSLNK,,,,11000,100 SPACE-SYSLNK
+ASSGN SYSLNK,SYS000
+// OPTION LINK
+// OPTION CATAL,LIST
+ PHASE ZZTEST,S+80
+// DLBL IJSYSIN,'ZZTEST.ASM'
+ASSGN SYSIPT,SYS000
+// EXEC ASSEMBLY
+CLOSE SYSIPT,READER
+*
+*
+*
+*
+*
+*
+* Now link the whole app
+*
+ INCLUDE VSESTART
+ INCLUDE STDIO
+ INCLUDE STRING
+ INCLUDE STDLIB
+ INCLUDE CTYPE
+ INCLUDE ERRNO
+ INCLUDE LOCALE
+ INCLUDE MATH
+ INCLUDE SIGNAL
+ INCLUDE SETJMP
+ INCLUDE ASSERT
+ INCLUDE TIME
+ INCLUDE START
+ INCLUDE VSESUPA
+// EXEC LNKEDT
+*
+*
+* Now run ZZTEST
+*
+// EXEC ZZTEST,SIZE=AUTO,PARM='Fred'
+/*
+*
+*
+*
+/&
+* $$ EOJ
+
+
+
+
+
+Miscellaneous notes about VSE
+-----------------------------
+
+The attempt to get GCCVSE to self-recompile on VSE has
+not yet been done.
+
+The DOS/VS linker cannot handle blank CSECTs because of a
+bug in the linkage editor, which is fixed in VSE/380. So
+you may find it difficult to build on an unpatched DOS/VS
+(you can use NAMCSECT to name CSECTs), but you can still 
+run on it.
+
+Both DOS/VS and z/VSE have a restriction on the number of
+relocatable items. GCC exceeds this by a small amount, so
+you get this problem:
+
+2188I TOO MANY RLD ITEMS, ONLY 65534 ITEMS ARE ALLOWED
+PHASE(S) NOT CATALOGED DUE TO ERROR
+
+On DOS/VS things are worse - the same restriction exists,
+but there is no error message - it just clobbers storage
+(ie a bug) and then fails to catalog the executable.
+
+The problem can be circumvented by making the module
+non-relocatable, with this statement:
+
+ PHASE GCC,+X'7000C8'
+  
+which you can see in compvse.m4 (the precursor to alljcl.jcl).
+
+Although the GCC executable is not relocatable, it is still
+perfectly fine for creating new relocatable programs. The
+address of approx 7 MB should be valid in most z/VSE systems.
+If you find it isn't, you will need to recompile from
+source.
+
+Here is the underlying technical problem (courtesy of Bill Carlborg):
+
+It was interesting tracking this one down. Originally in using the relocating
+loader the linkage editor only allowed 255 relocatable items per phase. In R34
+they raised the number to 400. The LE reserves space at the end of its code for
+the 400 entries before it sets up space for another table of external names. So
+there's space in the LE for 400. But IBM never checked if they ran out of room.
+So we got the old buffer or table overflow problem causing the kaboom. I guess
+they figured nobody would ever hit the limit, and I've never seen it happen
+until now. The problem is complicated in this case because we only have one
+phase. Usually such programs under DOS/VS were multiple phases. I started
+patching the LE raising the number up to 10000 but it still wasn't enough room. 
+Then I ran into halfword number limitations. So I patched the LE to use
+fullword numbers instead of halfword numbers. Raised the number to 64000,
+still wasn't enough room. Finally by giving the table a size of 256K (about
+85000 items) instead of 1200 bytes (for 400 items) it did catalog. Of course
+that means with the patches the LE will always need a partition of more than
+300K to run. Then we hit the next wall. With that many entries needing to be
+relocated it would require more CIL records at the end of the phase to hold the
+relocatable dictionary. Specifically in this case I'm guessing about an
+additional 257 1K CIL records. The CI directory entry has a field for the
+number of CIL records holding the relocatable dictionary. Guess what, it's only
+one byte, max number of 255. Not big enough. So the loader sees in the
+directory entry there are only 2 CIL records holding relocatable information. 
+That's not gonna work. Okay, I'm done. Either the program needs to become
+multi-phase or have fewer relocatable items or ACTION NOREL becomes the
+permanent solution.
+
+
+One more thing that should be done is allow at least
+60 MB above the 16 MB line, as that is the normal way
+that GCC operates. This behaviour can be changed by
+compiling without USE_MEMMGR (see stdcompd.bat).
+
+
+The compiler asserts __VSE__ for conditional compilation.
+
+
+The compiler is dependent on PDPCLIB, which allows
+parameters in the following manner:
+
+1. If a PARM= is supplied, it will be used.
+2. Otherwise, if a SYSPARM is provided, it will be used.
+3. SYSPARM only allows 8 characters, so if it is set to
+"?" then special processing will be invoked.
+4. If the UPSI has the first bit set to 1, then the first
+line of SYSIPT will be treated as the parameter.
+5. The other UPSI bits are not yet defined so should be
+explicitly set to 0.
+
+
+stdin comes from SYSIPT.
+stdout goes to SYSLST.
+stderr goes to SYS005 which needs to be manually
+  assigned to something - usually SYSLST also.
+
+
+PDPCLIB's VSE implementation is somewhat limited, but still
+very useful. If you want to read from a tape, you have
+to use a ddname of MTI1 (ie "dd:mti1"). "dd:syspunch" is
+also recognized as being for the punch. Disk and tape 
+files are expected to be RECFM=U. When reading from
+disk files, the maximum blocksize will be accepted, but
+on output, 6480 is always used, to provide a multiple of
+both 80 and 81, which may be useful to some applications.
+sysin (stdin) is F80 and assigned to SYSIPT, and sysprint 
+(stdout) is F121 (including automatically-inserted, mandatory 
+control character) and assigned to SYSLST, and both are
+device-independent. systerm (stderr) is F80 and goes to 
+whatever is assigned to SYS005, usually syslst.
+
+Modules are typically built with a PHASE statement of
+S+80 so that if they are executed on a DOS/VS system
+(which has a loader that doesn't automatically provide
+room for this), they will still be able to cope with
+labelled tapes. The "S" rather than "*" provides
+consistency when doing multiple links.
+
+When a nominal attempt to write to a library member is done,
+the C library will translate this into automatic punching of
+object code which can be fed into LNKEDT to put the data
+into the CIL. This is automatically fetched when a read
+attempt is done. No attempt has yet been made to allow
+similar behaviour (except BKEND/MAINT) for writing to other 
+library types (current plan is for the DDNAME to codify the 
+desired library type).
+
+File access is done via DDNAMEs of the form dd:ddname,
+where ddname is defined in JCL.
+
+There is a concept of a "default disk" which is SYS000,
+to reduce the amount of JCL needed to be written. All
+normal files come from there by default.
+
+The entry point is always @@MAIN (which just calls @@CRT0),
+and normally you would not need to explicitly set that,
+it should be automatically set.
+
+
+
+
+Building
+--------
+
+To install from scratch you need to cross-compile from another 
+platform. Scripts are provided for Windows.
+
+First of all you need to get the source code by:
+
+1. Downloading the GCC base code (as per GCCMVS).
+
+2. Downloading the GCCMVS patch and applying it (as per GCCMVS).
+
+
+You then need to set the configuration properly.
+
+There are 4 distinct VSE programming environments possible:
+
+1. DOS/VS where everything is 24-bit. This is the S370
+environment.
+
+2. z/VSE where it is possible to write 31-bit executables 
+that reside above the 16 MB line. This is the S390
+environment.
+
+3. VSE/380 where 31-bit executables can be created, but they
+must reside below the line and they can only obtain a single
+chunk of ATL memory (current restriction). This is the S380
+environment.
+
+4. VSE/XA where 31-bit capability exists, but I/O macros
+necessitate that the executable must reside below the line.
+This is also the S380 environment (the only difference is
+that use of MEMMGR is not mandatory).
+
+
+The differences between categories 3 and 4 are as follows:
+
+1. VSE/XA can get control in 31-bit mode, not requiring
+an AMODE switch.
+
+2. VSE/XA can make multiple ATL memory requests.
+
+
+Rather than create another flavor of the code, PDPCLIB
+was written such that S380 mode:
+
+1. Detects whether it was called in 31-bit or 24-bit mode
+and switches to 31-bit mode if not already in that. This
+code is in vsestart.asm and could potentially be removed.
+
+2. Uses an internal heap manager (memmgr) so that only a
+single request for a chunk of 31-bit memory is made. This
+is faster than repeatedly calling the operating system
+anyway, but can be reversed out by not defining USE_MEMMGR
+in stdcompd.bat.
+
+
+You can build the cross-compiler and then produce the
+assembler code that can be transferred to VSE by using
+the "allvse.bat" file (after inspecting it for any
+required modifications). However, that batch file relies
+on the existence of other VSE-based programs, which
+are built by "vseutil.bat". Although those utilities 
+are at least nominally optional.
+
+Don't worry about the fact that the executable is called
+gccmvs.exe and the batch file is also called mvs.  The
+name is shared, but they are different. The executable
+is manually renamed from gccmvs.exe to gccvse.exe before
+shipment.
+
+At time of writing, precompiled binaries were only available
+as part of the VSE/380 distribution:
+http://mvs380.sourceforge.net
+
+
+
+
+Version
+-------
+
+To find out version, you can go:
+
+EXEC GCC,PARM='--version'
+
+
+
+Support
+-------
+
+Try asking a generic GCC question here:
+
+http://tech.groups.yahoo.com/group/hercules-os380/
+
+If your question is more VSE-related than GCC-related,
+a broader range of VSE expertise is available here:
+
+http://tech.groups.yahoo.com/group/H390-DOSVS/
+
+
+
+Future direction
+----------------
+
+* Get GCCVSE to self-recompile on VSE/380
+
+* Write and then use a utility to make an executable self-relocating
+
+* Build from minizip (compressed) input
+
+* PDPCLIB should recognize long DDNAMEs like sdi2fb133 and adjust
+LRECL appropriately.
+
+* PDPCLIB should be able to deblock fb files.
+
+* PDPCLIB should generate BKEND output when writing to f80 library.
+
+* Make use of private libraries instead of putting everything
+directly into system libraries.
+
+* Get autolink working.
+
+* PDPCLIB should read from a DDNAME such as SYSDIR whenever an
+attempt is made to read a nominal PDS. Perhaps a member name
+of '*' signifies a PDS directory read. That way minizip can
+get an MVS-style member list and start reading things like
+header files from the CIL.
+
+* PDPCLIB should probably be using LOAD rather than CDLOAD
+to use less memory. But that would require 24-bit storage
+to be obtained, so malloc wouldn't necessarily be appropriate.
+
+* Produce a 24-bit executable.
+

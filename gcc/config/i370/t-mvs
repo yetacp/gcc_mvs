@@ -1,0 +1,7 @@
+#
+# Target is an i370 running MVS (OS/390)
+#
+
+# Don't bother making libgcc, we don't use it.
+LIBGCC =
+INSTALL_LIBGCC =

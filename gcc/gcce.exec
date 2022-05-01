@@ -1,0 +1,143 @@
+***************************************************************
+*
+* Wrapper EXEC to run GCC and then assemble the output
+*
+* Format is :-
+*
+*  GCCE <fn> <ft> <fm> <( <NOASM> <PARM fn> >
+*
+* Where fn, ft and fm specify a file to be compiled
+*
+* NOASM overrides the default behaviour and does not call the assembler
+*
+* PARM fb  specifies an PARM file containg arguments to be passed to GCC
+*          By default GCC PARM is used.
+*
+*
+***************************************************************
+&CONTROL OFF NOMSG
+&FT = C
+&FM = A
+&ASM = ASM
+&PARM = GCC
+&ASMNAME = ASMAHL
+
+GLOBAL MACLIB OSMACRO DMSGPI PDPCLIB
+
+*
+* CHECK WE HAVE A FILE NAME
+*
+&IF &INDEX EQ 0 &GOTO -NOARGS
+&IF &1 EQ &LITERAL ( &GOTO -NOARGS
+&FN = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8
+*
+* NOW GET A FILE TYPE
+*
+&IF &INDEX EQ 0 &GOTO -COMPILE
+&IF &1 EQ &LITERAL ( &GOTO -PARMS
+&FT = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+*
+* NOW CHECK FOR A FILE MODE
+*
+&IF &INDEX EQ 0 &GOTO -COMPILE
+&IF &1 EQ &LITERAL ( &GOTO -PARMS
+&FM = &1
+&ARGS &2 &3 &4 &5 &6 &7 &8 &9
+*
+* NOW LOOP AND EXTRACT THE PARMS
+*
+-PARMS
+&IF &INDEX EQ 0 &GOTO -COMPILE
+&IF &1 NE &LITERAL ( &GOTO -NOBRACK
+&ARGS &2 &3 &4 &5 &6 &7
+&LOOP -NEXTPRM &INDEX
+&IF &INDEX EQ 0 &GOTO -COMPILE
+*
+* FIRST CHECK FOR <PARM FN>
+*
+&IF &1 NE PARM &GOTO -NOFILE
+&IF &INDEX EQ 1 &GOTO -BADPARM
+&PARM = &2
+&ARGS &3 &4 &5 &6 &7 &8
+&GOTO -NEXTPRM
+-NOFILE
+*
+* NOW CHECK FOR NOASM
+*
+&IF &1 NE NOASM &GOTO -BADPARM
+&ASM = NOASM
+&ARGS &1 &2 &3 &4 &5 &6 &7 &8
+-NEXTPRM
+*
+* NOW SET UP FOR GCC
+*
+-COMPILE
+STATE &FN &FT &FM
+&IF &RETCODE NE 0 &GOTO -NOSRC
+*
+* SOURCE FILE EXISTS - ISSUES FILEDEFS
+*
+FILEDEF SYSPRINT TERM (LRECL 80
+FILEDEF SYSPARM DISK &PARM PARM *
+FILEDEF OUT DISK &FN WORK &FM (LRECL 80 RECFM F
+FILEDEF SYSIN DISK &FN C &FM
+&NAME = &CONCAT  &FN .C
+GCC
+*
+* NOW RENAME OUTPUT FILE IF GCC WORKED
+*
+&MYRC = &RETCODE
+FILEDEF SYSPRINT CLEAR
+FILEDEF SYSPARM CLEAR
+FILEDEF OUT CLEAR
+FILEDEF SYSIN CLEAR
+&IF &MYRC GT 4 &EXIT &MYRC
+STATE &FN ASSEMBLE &FM
+&IF &RETCODE NE 0 &GOTO -COPYFILE
+ERASE &FN ASSEMBLE &FM
+-COPYFILE
+RENAME &FN WORK &FM = ASSEMBLE =
+&IF &ASM EQ NOASM &EXIT
+&CONTROL
+&ASMNAME &FN
+&CONTROL OFF NOMSG
+ERASE &FN ASSEMBLE &FM
+ERASE &FN LISTING &FM
+&EXIT
+*
+* ERROR MESSAGES GO HERE
+*
+-NOARGS
+*
+* NO PARAMS - TYPE SOME BASIC INFO
+*
+&BEGTYPE
+********************************************************
+*
+* EXEC to run GCC and then assemble the output
+*
+* Format is :-
+*
+*  GCCE <fn> <ft> <fm> <( <NOASM> <PARM fn> >
+*
+* Where fn, ft and fm specify a file to be compiler
+*
+* NOASM overrides the default behaviour and does not call the assembler
+*
+* PARM fb  specifies an alternative PARM file containg arguments to pass to GCC
+*          by default GCC PARM is used.
+*
+***************************************************************
+&ENDTYPE
+&EXIT 4
+-NOBRACK
+&TYPE ARGS MUST START WITH A &LITERAL (
+&EXIT 4
+-BADPARM
+&TYPE PARM OPTION MUST HAVE A FILENAME
+&EXIT 4
+-NOSRC
+&TYPE SOURCE FILE  ' &FN &FT &FM ' NOT FOUND
+&EXIT 4

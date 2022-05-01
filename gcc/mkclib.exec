@@ -1,0 +1,21 @@
+* PRODUCE CLIB TEXT CONTAING ALL OF PDPCLIB              
+* COPY THE FILES
+
+ &DISK = &1
+                    
+ COPY CMSSTART TEXT &DISK CLIB TEXT &DISK (REP                     
+ COPY START TEXT &DISK CLIB TEXT &DISK (APP                        
+ COPY CMSSUPA TEXT &DISK CLIB TEXT &DISK (APP                      
+ COPY STDIO TEXT &DISK CLIB TEXT &DISK (APP                        
+ COPY STDLIB TEXT &DISK CLIB TEXT &DISK (APP                       
+ COPY CTYPE TEXT &DISK CLIB TEXT &DISK (APP                        
+ COPY STRING TEXT &DISK CLIB TEXT &DISK (APP                       
+ COPY TIME TEXT &DISK CLIB TEXT &DISK (APP                         
+ COPY ERRNO TEXT &DISK CLIB TEXT &DISK (APP                        
+ COPY ASSERT TEXT &DISK CLIB TEXT &DISK (APP                       
+ COPY LOCALE TEXT &DISK CLIB TEXT &DISK (APP                       
+ COPY MATH TEXT &DISK CLIB TEXT &DISK (APP                         
+ COPY SETJMP TEXT &DISK CLIB TEXT &DISK (APP                       
+ COPY SIGNAL TEXT &DISK CLIB TEXT &DISK (APP                       
+ COPY __MEMMGR TEXT &DISK CLIB TEXT &DISK (APP                       
+

@@ -1,0 +1,5 @@
+/inc rexx
+parse arg name
+
+"comp old\"name".s new\"name".s"
+exit rc
