@@ -1,4 +1,6 @@
-# Linux C cross compiler for MVS
+# GCC & PDPCLIB
+
+## Linux C cross compiler for MVS
 - Author: Paul Edwards
 - Source: http://gccmvs.sourceforge.net/
 - Fork: https://github.com/mainframed/gccmvs 
@@ -10,10 +12,15 @@ sudo apt install gcc-multilib
 cd gccmvs
 make
 ```
-## Warning
+### Warning
 
 You must to compile gccmvs with CFLAGS = -O0. See Makefile.
 There is a bug that avoid to optimize GCC code.
+
+## **PDPCLIB 4.0**
+- Public Domain Project C Library
+- http://pdos.sourceforge.net/
+- Author: Paul Edwards
 
 ## GCC
 The GNU Compiler Collection is free software.  See the file COPYING
@@ -31,3 +38,4 @@ includes) for usage and porting information.  An online readable
 version of the manual is in the files gcc/doc/gcc.info*.
 
 See http://gcc.gnu.org/bugs.html for how to report bugs usefully.
+
