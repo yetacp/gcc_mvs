@@ -1,5 +1,21 @@
-# GNU Compiler Collection (GCC).
+# Linux C cross compiler for MVS
+- Author: Paul Edwards
+- Source: http://gccmvs.sourceforge.net/
+- Fork: https://github.com/mainframed/gccmvs 
 
+In Ubuntu/Debian install gcc-multilib.
+
+```bash
+sudo apt install gcc-multilib
+cd gccmvs
+make
+```
+## Warning
+
+You must to compile gccmvs with CFLAGS = -O0. See Makefile.
+There is a bug that avoid to optimize GCC code.
+
+## GCC
 The GNU Compiler Collection is free software.  See the file COPYING
 for copying permission.  The manuals, and some of the runtime
 libraries, are under different terms; see the individual source files
