@@ -1,7 +1,7 @@
 
 # common definitions
 DEFINES = -DIN_GCC -DHAVE_CONFIG_H -DPUREISO -DTARGET_MVS
-INCLUDES = -I include -I gcc -I gcc/config/i370 -I pdpclib -g
+INCLUDES = -I include -I gcc -I gcc/config/i370 -I mvsclib/common/include -g
 PROGRAM_NAME := gccmvs
 # definitions for building cross tools
 CC = gcc
@@ -156,56 +156,16 @@ LIB_SRCS = \
   libiberty/strsignal.c \
   libiberty/partition.c
 
-# PDPCLIB_SRCS = \
-#   pdpclib/assert.c \
-#   pdpclib/ctype.c \
-#   pdpclib/errno.c \
-#   pdpclib/linstart.c \
-#   pdpclib/locale.c \
-#   pdpclib/math.c \
-#   pdpclib/__memmgr.c \
-#   pdpclib/setjmp.c \
-#   pdpclib/signal.c \
-#   pdpclib/start.c \
-#   pdpclib/stdio.c \
-#   pdpclib/stdlib.c \
-#   pdpclib/string.c \
-#   pdpclib/time.c 
-
-
 # all sources for the compiler
 
 SRC_FILES = $(GCC_SRCS) $(LIB_SRCS) 
 OBJ_FILES := $(foreach filename, $(SRC_FILES), $(filename:.c=.o))
 
-# default rule
-# all: target-mvs target-cms target-vse
-# all: target-mvs
-# .PHONY: all
-
-# # rule for MVS
-# target-mvs: out/i370-mvs-gcc
-# .PHONY: target-mvs
-
-# # rule for CMS
-# target-cms: out/i370-cms-gcc
-# .PHONY: target-cms
-
-# # rule for VSE
-# target-vse: out/i370-vse-gcc
-# .PHONY: target-vse
-
-# # cleanup rule
-# clean:
-# 	rm -rf out
-# .PHONY: clean
-
-
 all: $(PROGRAM_NAME)
 .PHONY: all
 
 #build executable file
-$(PROGRAM_NAME): $(OBJ_FILES) pdpclib/pdplinux.a
+$(PROGRAM_NAME): $(OBJ_FILES) mvsclib/linux/libmvsclib.a
 	@echo "Build executable"
 	@$(CC) $(CFLAGS) -nostdlib -o $@ $^ -lgcc
 
@@ -213,43 +173,13 @@ $(PROGRAM_NAME): $(OBJ_FILES) pdpclib/pdplinux.a
 %.o: %.c
 	@echo "Compile $(notdir $<)"
 	@$(CC) -c $(CFLAGS) $< -o $@
-# # rule for building a cross compiler object
-# define build_cross_object
-# # rule for one source file
-# out/$(1)-cross/$(notdir $(3:.c=.o)): $(3) out/$(1)-cross
-# 	$(CC) $(CFLAGS) $(2) -c -o $$@ $$<
 
-# endef
-
-
-
-# # rule for building a cross compiler
-# define build_cross
-# # rule for each source file
-# $(foreach src,$(3),$(call build_cross_object,$(1),$(2),$(src)))
-# # rule for output directory
-# out/$(1)-cross:
-# 	mkdir -p $$@
-
-  
-# # rule for compiler binary
-# out/$(1)-gcc: $(foreach src,$(3),out/$(1)-cross/$(notdir $(src:.c=.o))) pdpclib/pdplinux.a
-# 	$(CC) $(CFLAGS) -nostdlib -o $$@ $$? -lgcc
-
-# endef
-
-
-pdpclib/pdplinux.a: 
-	$(MAKE) -C pdpclib
-
-# define cross compilers
-# $(eval $(call build_cross,i370-mvs,-DTARGET_MVS,$(COMPILER_SRCS)))
-#$(eval $(call build_cross,i370-cms,-DTARGET_CMS,$(COMPILER_SRCS)))
-#$(eval $(call build_cross,i370-vse,-DTARGET_VSE,$(COMPILER_SRCS)))
+mvsclib/linux/libmvsclib.a: 
+	$(MAKE) -C mvsclib
 
 clean:
 	@rm -f $(OBJ_FILES) $(PROGRAM_NAME)
-	@cd pdpclib && make clean
+	@cd mvsclib && make clean
 
 
 # dummy rule to prevent running yacc
