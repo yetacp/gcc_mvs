@@ -5,6 +5,8 @@
 - Source: http://gccmvs.sourceforge.net/
 - Fork: https://github.com/mainframed/gccmvs 
 
+See https://www.w3docs.com/learn-git/git-submodule.html
+
 In Ubuntu/Debian install gcc-multilib.
 
 ```bash
