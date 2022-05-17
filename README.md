@@ -8,7 +8,18 @@
 In Ubuntu/Debian install gcc-multilib.
 
 ```bash
+git clone https://github.com/yetacp/gcc_mvs.git
+cd gcc_mvs
+
+mkdir submodules
+cd submodules
+
+git init
+git submodule add https://github.com/yetacp/mvsclib.git
+git submodule update
+
 sudo apt install gcc-multilib
+
 cd gccmvs
 make
 ```
