@@ -15,13 +15,11 @@ cd gcc_mvs
 
 mkdir submodules
 cd submodules
-
 git init
 git submodule add https://github.com/yetacp/mvsclib.git
 git submodule update
-
 cd ../gccmvs
-ln -s submodules/mvsclib mvsclib
+ln -s submodules/mvsclib .
 
 make
 ```
